@@ -93,7 +93,7 @@
             }
         }
 
-        public static bool TryWhereNonZero(this IEnumerable<double> values, out int index)
+        public static bool TryWhereFirstNonZero(this IEnumerable<double> values, out int index)
         {
             var comparer = NumericComparer.Default;
 
@@ -110,6 +110,30 @@
 
             index = default(int);
             return false;
+        }
+
+        public static bool TryWhereLastNonZero(this IEnumerable<double> values, out int index)
+        {
+            var comparer = NumericComparer.Default;
+
+            index = values.Count() - 1;
+            foreach (var value in values.Reverse())
+            {
+                if (comparer.AreEqual(value, 0.0) == false)
+                {
+                    return true;
+                }
+
+                index--;
+            }
+
+            index = default(int);
+            return false;
+        }
+
+        public static bool TryWhereNonZero(this IEnumerable<double> values, out int index)
+        {
+            return values.TryWhereFirstNonZero(out index);
         }
 
         public static bool TryWhereNonZero<T>(this IDictionary<T, double> dict, out KeyValuePair<T, double> pairNonZero)
