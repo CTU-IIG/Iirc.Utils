@@ -1,4 +1,10 @@
-﻿namespace Iirc.Utils.Text
+﻿// ---------------------------------------------------------------------------------------------------------------------
+// <copyright file="StringExtensions.cs" company="Czech Technical University in Prague">
+//   Copyright (c) 2018 Czech Technical University in Prague
+// </copyright>
+// ---------------------------------------------------------------------------------------------------------------------
+
+namespace Iirc.Utils.Text
 {
     using System;
     using System.Linq;

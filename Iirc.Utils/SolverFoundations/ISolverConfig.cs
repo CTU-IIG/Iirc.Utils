@@ -1,4 +1,10 @@
-﻿namespace Iirc.Utils.SolverFoundations
+﻿// ---------------------------------------------------------------------------------------------------------------------
+// <copyright file="ISolverConfig.cs" company="Czech Technical University in Prague">
+//   Copyright (c) 2018 Czech Technical University in Prague
+// </copyright>
+// ---------------------------------------------------------------------------------------------------------------------
+
+namespace Iirc.Utils.SolverFoundations
 {
     using System;
     using System.Collections.Generic;

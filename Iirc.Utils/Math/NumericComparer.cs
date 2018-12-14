@@ -1,4 +1,10 @@
-﻿namespace Iirc.Utils.Math
+﻿// ---------------------------------------------------------------------------------------------------------------------
+// <copyright file="NumericComparer.cs" company="Czech Technical University in Prague">
+//   Copyright (c) 2018 Czech Technical University in Prague
+// </copyright>
+// ---------------------------------------------------------------------------------------------------------------------
+
+namespace Iirc.Utils.Math
 {
     using System;
 

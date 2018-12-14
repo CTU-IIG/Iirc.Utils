@@ -1,4 +1,10 @@
-﻿namespace Iirc.Utils.Collections
+﻿// ---------------------------------------------------------------------------------------------------------------------
+// <copyright file="EnumerableExtensions.cs" company="Czech Technical University in Prague">
+//   Copyright (c) 2018 Czech Technical University in Prague
+// </copyright>
+// ---------------------------------------------------------------------------------------------------------------------
+
+namespace Iirc.Utils.Collections
 {
     using System;
     using System.Collections.Generic;

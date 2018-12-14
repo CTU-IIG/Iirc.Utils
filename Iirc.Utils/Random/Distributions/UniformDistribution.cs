@@ -1,16 +1,24 @@
+// ---------------------------------------------------------------------------------------------------------------------
+// <copyright file="UniformDistribution.cs" company="Czech Technical University in Prague">
+//   Copyright (c) 2018 Czech Technical University in Prague
+// </copyright>
+// ---------------------------------------------------------------------------------------------------------------------
+
 namespace Iirc.Utils.Random.Distributions
 {
+    using System;
+    
     public class UniformDistribution
     {
-        private double minValueInclusive;
-        private double maxValueExclusive;
-        private System.Random random;
+        private readonly double minValueInclusive;
+        private readonly double maxValueExclusive;
+        private readonly Random random;
 
-        public UniformDistribution(double minValueInclusive, double maxValueExclusive, System.Random random)
+        public UniformDistribution(double minValueInclusive, double maxValueExclusive, Random random)
         {
             this.minValueInclusive = minValueInclusive;
             this.maxValueExclusive = maxValueExclusive;
-            this.random = random != null ? random : new System.Random();
+            this.random = random ?? new Random();
         }
 
         public double Sample()
