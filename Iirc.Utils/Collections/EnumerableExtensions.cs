@@ -158,5 +158,37 @@ namespace Iirc.Utils.Collections
             pairNonZero = default(KeyValuePair<T, double>);
             return false;
         }
+
+        public static void SwapInPlace<T>(this IList<T> list, int i, int j)
+        {
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
+        }
+
+        public static IList<T> Shuffle<T>(this IList<T> list)
+        {
+            return list.Shuffle(new Random());
+        }
+
+        public static IList<T> Shuffle<T>(this IList<T> list, Random rnd)
+        {
+            var shuffledList = list.ToList();
+            shuffledList.ShuffleInPlace(rnd);
+            return shuffledList;
+        }
+
+        public static void ShuffleInPlace<T>(this IList<T> list)
+        {
+            list.ShuffleInPlace(new Random());
+        }
+
+        public static void ShuffleInPlace<T>(this IList<T> list, Random rnd)
+        {
+            for (int i = 0; i < list.Count - 1; i++) {
+                var randomIndex = rnd.Next(i, list.Count);
+                list.SwapInPlace(i, randomIndex);
+            }
+        }
     }
 }
