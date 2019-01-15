@@ -159,6 +159,13 @@ namespace Iirc.Utils.Collections
             return false;
         }
 
+        public static IList<T> Swap<T>(this IList<T> list, int i, int j)
+        {
+            var result = list.ToList();
+            result.SwapInPlace(i, j);
+            return result;
+        }
+
         public static void SwapInPlace<T>(this IList<T> list, int i, int j)
         {
             T temp = list[i];
