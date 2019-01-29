@@ -26,5 +26,15 @@ namespace Iirc.Utils.Text
         {
             return str.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
         }
+
+        public static string FirstToLower(this string str)
+        {
+            return string.IsNullOrEmpty(str) ? str : (char.ToLower(str[0]) + str.Substring(1));
+        }
+        
+        public static string FirstToUpper(this string str)
+        {
+            return string.IsNullOrEmpty(str) ? str : (char.ToUpper(str[0]) + str.Substring(1));
+        }
     }
 }
