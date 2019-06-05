@@ -67,5 +67,13 @@ namespace Iirc.Utils.Time
                 return this.RemainingTime == TimeSpan.Zero;
             }
         }
+
+        public long ElapsedMilliseconds
+        {
+            get
+            {
+                return this.stopwatch.ElapsedMilliseconds;
+            }
+        }
     }
 }
