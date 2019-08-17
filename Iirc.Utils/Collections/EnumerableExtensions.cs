@@ -44,6 +44,52 @@ namespace Iirc.Utils.Collections
             }
         }
 
+        public static IEnumerable<List<T>> Product<T>(this IList<T> values, int repeat)
+        {
+            if (!values.Any())
+            {
+                yield return new List<T>();
+                yield break;
+            }
+            
+            if (repeat <= 0)
+            {
+                yield return new List<T>();
+                yield break;
+            }
+            
+            var indices = Enumerable.Repeat(0, repeat).ToList();
+
+            while (true)
+            {
+                // Yield result;
+                yield return indices.Select(index => values[index]).ToList();
+                
+                // Increase indices.
+                var position = 0;
+                var carry = true;
+                while (carry)
+                {
+                    if ((indices[position] + 1) >= values.Count)
+                    {
+                        carry = true;
+                        indices[position] = 0;
+                        position++;
+                    }
+                    else
+                    {
+                        carry = false;
+                        indices[position]++;
+                    }
+
+                    if (carry && position >= repeat)
+                    {
+                        yield break;
+                    }
+                }
+            }
+        }
+
         public static int IndexMin<T, K>(this IList<T> values, Func<T, K> keySelector)
         {
             if (values.Any() == false)
