@@ -243,5 +243,46 @@ namespace Iirc.Utils.Collections
                 list.SwapInPlace(i, randomIndex);
             }
         }
+
+        public static List<T> MoveElement<T>(this IList<T> list, int source, int destination)
+        {
+            var newList = Enumerable
+                .Repeat(default(T), list.Count)
+                .ToList();
+
+            var elementToMove = list[source];
+
+            int leftPosition = Math.Min(source, destination);
+            int rightPosition = Math.Max(source, destination);
+            for (int i = 0; i < leftPosition; i++)
+            {
+                newList[i] = list[i];
+            }
+                
+            // The inner part.
+            if (source <= destination)
+            {
+                for (int i = source; i < destination; i++)
+                {
+                    newList[i] = list[i + 1];
+                }
+            }
+            else
+            {
+                for (int i = destination + 1; i <= source; i++)
+                {
+                    newList[i] = list[i - 1];
+                }
+            }
+                
+            for (int i = rightPosition + 1; i < newList.Count; i++)
+            {
+                newList[i] = list[i];
+            }
+
+            newList[destination] = elementToMove;
+
+            return newList;
+        }
     }
 }

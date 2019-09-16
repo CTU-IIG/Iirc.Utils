@@ -26,6 +26,16 @@ namespace Iirc.Utils.Tests.Collections
         }
         
         [Theory]
+        [InlineData(new [] {0, 1, 2, 3}, 0, 2, new [] {1, 2, 0, 3})]
+        [InlineData(new [] {0, 1, 2, 3}, 1, 2, new [] {0, 2, 1, 3})]
+        [InlineData(new [] {0, 1, 2, 3, 4}, 3, 1, new [] {0, 3, 1, 2, 4})]
+        [InlineData(new [] {0, 1, 2, 3, 4}, 4, 1, new [] {0, 4, 1, 2, 3})]
+        public void MoveElementTheory(int[] list, int source, int destination, int[] expected)
+        {
+            Assert.Equal(expected, list.MoveElement(source, destination));
+        }
+        
+        [Theory]
         [MemberData(nameof(ProductTheoryData))]
         public void ProductTheory(int[] values, int repeat, int[][] expected)
         {
