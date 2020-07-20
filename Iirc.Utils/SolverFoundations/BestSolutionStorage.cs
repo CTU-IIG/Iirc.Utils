@@ -7,6 +7,7 @@
 namespace Iirc.Utils.SolverFoundations
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
 
     public class BestSolutionStorage<T> where T: IHasObjective
@@ -22,8 +23,9 @@ namespace Iirc.Utils.SolverFoundations
             
             this.bestSolution = default(T);
             this.timeToBest = long.MaxValue;
+            this.BestSoFarObjectives = new List<int>();
+            this.BestSoFarElapsedTimes = new List<TimeSpan>();
         }
-        
         
         public bool TestAndUpdateBestSolution(T newSolution)
         {
@@ -36,6 +38,9 @@ namespace Iirc.Utils.SolverFoundations
             {
                 this.bestSolution = newSolution;
                 this.timeToBest = this.timeToBestClock.ElapsedMilliseconds;
+                
+                this.BestSoFarObjectives.Add(this.BestSolution.Objective.Value);
+                this.BestSoFarElapsedTimes.Add(this.TimeToBest);
 
                 return true;
             }
@@ -52,5 +57,8 @@ namespace Iirc.Utils.SolverFoundations
 
         public T BestSolution => this.bestSolution;
         public TimeSpan TimeToBest => TimeSpan.FromMilliseconds(this.timeToBest);
+        
+        public List<TimeSpan> BestSoFarElapsedTimes { get; set; }
+        public List<int> BestSoFarObjectives { get; set; }
     }
 }
