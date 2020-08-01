@@ -15,6 +15,28 @@ namespace Iirc.Utils.Tests.Collections
     public class EnumerableExtensionsTests
     {
         [Theory]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 3, 6, 2, new [] { 0, 1, 2, 5, 6, 7, 3, 4, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 3, 4, 2, new [] { 0, 1, 2, 5, 3, 4, 6, 7, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 6, 2, 2, new [] { 0, 1, 6, 7, 2, 3, 4, 5, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 6, 5, 2, new [] { 0, 1, 2, 3, 4, 6, 7, 5, 8, 9 })]
+        public void MoveElementsTheory(int[] origin, int src, int dest, int length, int[] expected)
+        {
+            Assert.Equal(expected, origin.MoveElements(src, dest, length));
+        }
+        
+        [Theory]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 2, 4, 4, new [] { 0, 1, 6, 7, 2, 3, 4, 5, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 2, 5, 2, new [] { 0, 1, 5, 6, 4, 2, 3, 7, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 4, 2, 4, new [] { 0, 1, 4, 5, 6, 7, 2, 3, 8, 9 })]
+        [InlineData(new [] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 5, 2, 2, new [] { 0, 1, 5, 6, 4, 2, 3, 7, 8, 9 })]
+        public void SwapInPlaceTheory(int[] origin, int i, int j, int length, int[] expected)
+        {
+            var originCopy = origin.ToArray();
+            originCopy.SwapInPlace(i, j, length);
+            Assert.Equal(expected, originCopy);
+        }
+        
+        [Theory]
         [InlineData(new [] {0}, 10, new [] {0})]
         [InlineData(new [] {1}, 20, new [] {1})]
         [InlineData(new [] {1,2}, 20, new [] {1,2})]

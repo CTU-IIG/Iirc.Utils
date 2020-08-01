@@ -211,12 +211,52 @@ namespace Iirc.Utils.Collections
             result.SwapInPlace(i, j);
             return result;
         }
+        
+        public static IList<T> Swap<T>(this IList<T> list, int i, int j, int length)
+        {
+            var result = list.ToList();
+            result.SwapInPlace(i, j, length);
+            return result;
+        }
 
         public static void SwapInPlace<T>(this IList<T> list, int i, int j)
         {
             T temp = list[i];
             list[i] = list[j];
             list[j] = temp;
+        }
+        
+        public static void SwapInPlace<T>(this IList<T> list, int i, int j, int length)
+        {
+            var temp = new List<T>(length);
+            for (int diff = 0; diff < length; diff++)
+            {
+                temp.Add(list[i + diff]);
+            }
+
+            if (i <= j)
+            {
+                var swapStart = Math.Max(j, i + length);
+                var swapCount = j + length - swapStart;
+                for (int diff = 0; diff < swapCount; diff++)
+                {
+                    list[i + diff] = list[swapStart + diff];
+                }
+            }
+            else
+            {
+                var swapTo = Math.Max(i, j + length);
+                var swapCount = Math.Min(length, i - j);
+                for (int diff = 0; diff < swapCount; diff++)
+                {
+                    list[swapTo + diff] = list[j + diff];
+                }
+            }
+            
+            for (int diff = 0; diff < length; diff++)
+            {
+                list[j + diff] = temp[diff];
+            }
         }
 
         public static IList<T> Shuffle<T>(this IList<T> list)
@@ -242,6 +282,37 @@ namespace Iirc.Utils.Collections
                 var randomIndex = rnd.Next(i, list.Count);
                 list.SwapInPlace(i, randomIndex);
             }
+        }
+
+        public static List<T> MoveElements<T>(this IList<T> list, int source, int destination, int length)
+        {
+            var result = list.ToList();
+            
+            // Move the block to destination.
+            for (int diff = 0; diff < length; diff++)
+            {
+                result[destination + diff] = list[source + diff];
+            }
+            
+            // Shift the part outside of the block.
+            if (source <= destination)
+            {
+                int shiftCount = destination - source;
+                for (int diff = 0; diff < shiftCount; diff++)
+                {
+                    result[source + diff] = list[source + length + diff];
+                }
+            }
+            else
+            {
+                int shiftCount = source - destination;
+                for (int diff = 0; diff < shiftCount; diff++)
+                {
+                    result[destination + length + diff] = list[destination + diff];
+                }
+            }
+
+            return result;
         }
 
         public static List<T> MoveElement<T>(this IList<T> list, int source, int destination)
